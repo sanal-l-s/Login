@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_wave"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -29,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Login"
+                android:text="@string/login"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:fontFamily="@font/poppins_bold" />
@@ -46,7 +47,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="@string/username"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +64,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,8 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Signup"
+                    android:gravity="start"
+                    android:text="@string/signup"
                     android:textColor="#2196F3" />
 
                 <TextView
@@ -91,8 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="Forgot password?"
+                    android:gravity="end"
+                    android:text="@string/forgot_password"
                     android:textColor="#2196F3" />
             </LinearLayout>
 
@@ -104,7 +105,7 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login" />
+                android:text="@string/login" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
