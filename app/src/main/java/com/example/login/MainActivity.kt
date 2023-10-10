@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val txtProfileName: TextView = findViewById(R.id.txtProfileName)
         val llProfileScreen: LinearLayout = findViewById(R.id.llProfileScreen)
         val llLoginScreen: LinearLayout = findViewById(R.id.llLoginScreen)
+        val imgClose: ImageView = findViewById(R.id.imgClose)
 
 
         btnLogin.setOnClickListener {
@@ -49,6 +51,10 @@ class MainActivity : AppCompatActivity() {
                 llLoginScreen.visibility = View.VISIBLE
 //                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
             }
+        }
+        imgClose.setOnClickListener {
+            llProfileScreen.visibility = View.GONE
+            llLoginScreen.visibility = View.VISIBLE
         }
 
     }
