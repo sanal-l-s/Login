@@ -6,4 +6,5 @@
     <string name="signup">Signup</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="error_message">Login Failed</string>
+    <string name="avatar_image">Avatar Image</string>
 </resources>
