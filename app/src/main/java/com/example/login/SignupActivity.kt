@@ -21,7 +21,8 @@ class SignupActivity : AppCompatActivity() {
         val txtStatusMessage = findViewById<TextView>(R.id.txtStatusMessage)
         //endregion
 
-        val userList= ArrayList<UserData>()
+        val userList = ArrayList<UserData>()
+        var id = 0
 
 
 
@@ -35,23 +36,22 @@ class SignupActivity : AppCompatActivity() {
                 txtStatusMessage.visibility = View.GONE
 
 
-                userList.add(UserData(1, email, username, password))
+                userList.add(UserData(++id, email, username, password))
 
 
-                txtStatusMessage.text = "Added details of $username"
+                txtStatusMessage.text = getString(R.string.added_details_of, username)
                 txtStatusMessage.visibility = View.VISIBLE
 
                 if (userList.isNotEmpty()) {
                     Log.d("LIST", "LIST: $userList")
                 }
             } else {
-                txtStatusMessage.text = "Please enter the details"
+                txtStatusMessage.text = getString(R.string.please_enter_the_details)
                 txtStatusMessage.visibility = View.VISIBLE
             }
 
 
         }
-
 
 
     }
