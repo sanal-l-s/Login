@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //region View Initialization
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val etUserName: EditText = findViewById(R.id.etUserName)
         val etPassword: EditText = findViewById(R.id.etPassword)
         val txtErrorMessage: TextView = findViewById(R.id.txtErrorMessage)
-//        val txtProfileName: TextView = findViewById(R.id.txtProfileName)
-//        val llProfileScreen: LinearLayout = findViewById(R.id.llProfileScreen)
-//        val llLoginScreen: LinearLayout = findViewById(R.id.llLoginScreen)
+        val txtSignup: TextView = findViewById(R.id.txtSignup)
+        //endregion
 
 
         btnLogin.setOnClickListener {
@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                 txtErrorMessage.visibility = View.VISIBLE
 //                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
             }
+        }
+        txtSignup.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
         }
 
     }
