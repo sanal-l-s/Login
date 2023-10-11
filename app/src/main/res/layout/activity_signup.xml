@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/user_added"
-                android:textColor="@color/teal_700"
+                android:textColor="#8F8F8F"
                 android:visibility="invisible" />
 
             <Space
