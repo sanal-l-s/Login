@@ -9,50 +9,51 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class SignupActivity : AppCompatActivity() {
+
+    private val etEmail by lazy { findViewById<EditText>(R.id.etEmail) }
+    private val etUsername by lazy { findViewById<EditText>(R.id.etUserName) }
+    private val etPassword by lazy { findViewById<EditText>(R.id.etPassword) }
+    private val btnRegister by lazy { findViewById<Button>(R.id.btnRegister) }
+    private val txtStatusMessage by lazy { findViewById<TextView>(R.id.txtStatusMessage) }
+    private val userList = ArrayList<UserData>()
+    private var id = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-
-        //region Init Views
-        val etEmail = findViewById<EditText>(R.id.etEmail)
-        val etUsername = findViewById<EditText>(R.id.etUserName)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
-        val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val txtStatusMessage = findViewById<TextView>(R.id.txtStatusMessage)
-        //endregion
-
-        val userList = ArrayList<UserData>()
-        var id = 0
-
-
 
         btnRegister.setOnClickListener {
             val email = etEmail.text.toString()
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
 
-
-            if (email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
-                txtStatusMessage.visibility = View.GONE
-
+            if (areFieldsNotEmpty(email, username, password)) {
+                txtStatusMessage.hide()
 
                 userList.add(UserData(++id, email, username, password))
 
-
-                txtStatusMessage.text = getString(R.string.added_details_of, username)
-                txtStatusMessage.visibility = View.VISIBLE
+                txtStatusMessage.showWithMessage(getString(R.string.added_details_of, username))
 
                 if (userList.isNotEmpty()) {
                     Log.d("LIST", "LIST: $userList")
                 }
             } else {
-                txtStatusMessage.text = getString(R.string.please_enter_the_details)
-                txtStatusMessage.visibility = View.VISIBLE
+                txtStatusMessage.showWithMessage(getString(R.string.please_enter_the_details))
             }
-
-
         }
 
 
+    }
+    private fun areFieldsNotEmpty(email: String, username: String, password: String): Boolean {
+        return email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()
+    }
+
+    private fun TextView.showWithMessage(message: String) {
+        text = message
+        visibility = View.VISIBLE
+    }
+
+    private fun View.hide() {
+        visibility = View.GONE
     }
 }
