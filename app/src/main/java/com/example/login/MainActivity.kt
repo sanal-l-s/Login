@@ -14,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.login.home.HomeActivity
 
 class MainActivity : AppCompatActivity() {
-    private val btnLogin: Button by lazy { findViewById<Button>(R.id.btnLogin) }
-    private val etUserName: EditText by lazy { findViewById<EditText>(R.id.etUserName) }
-    private val etPassword: EditText by lazy { findViewById<EditText>(R.id.etPassword) }
-    private val txtErrorMessage: TextView by lazy { findViewById<TextView>(R.id.txtErrorMessage) }
-    private val txtSignup: TextView by lazy { findViewById<TextView>(R.id.txtSignup) }
+    private val btnLogin: Button by lazy { findViewById(R.id.btnLogin) }
+    private val etUserName: EditText by lazy { findViewById(R.id.etUserName) }
+    private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
+    private val txtErrorMessage: TextView by lazy { findViewById(R.id.txtErrorMessage) }
+    private val txtSignup: TextView by lazy { findViewById(R.id.txtSignup) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isCredentialsValid(username: String, password: String): Boolean {
-        return true //for skiping validation
+        return true //for skipping validation
         return username == "admin" && password == "admin@123"
     }
 
