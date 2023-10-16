@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.login.home.HomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val btnLogin: Button by lazy { findViewById<Button>(R.id.btnLogin) }
@@ -38,7 +39,8 @@ class MainActivity : AppCompatActivity() {
             if (isCredentialsValid(username, password)) {
                 txtErrorMessage.visibility = View.INVISIBLE
                 Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, ProfileActivity::class.java))
+//                startActivity(Intent(this, ProfileActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
             } else {
                 txtErrorMessage.showError("Invalid username or password")
             }
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isCredentialsValid(username: String, password: String): Boolean {
+        return true //for skiping validation
         return username == "admin" && password == "admin@123"
     }
 
