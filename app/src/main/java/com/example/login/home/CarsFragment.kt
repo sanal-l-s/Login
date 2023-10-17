@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 class CarsFragment : Fragment() {
     private lateinit var adapter: CarsAdapter
     private lateinit var rvCarList: RecyclerView
+    private lateinit var pbCars: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,7 @@ class CarsFragment : Fragment() {
         // Inflate the layout for this fragment
         inflater.inflate(R.layout.fragment_cars, container, false).apply {
             rvCarList = findViewById(R.id.rvCars)
+            pbCars = findViewById(R.id.pbCars)
         }.also {
             return it
         }
@@ -51,23 +54,28 @@ class CarsFragment : Fragment() {
             val carsAPiService: CarsApiService = CarsApiHelper.getInstance().create(
                 CarsApiService::class.java
             )
+            rvCarList.hide()
+            pbCars.show()
 
             val carsResponse = carsAPiService.getCars()
+
             val carList = carsResponse.body()?.results
             Log.i("TAG", "onViewCreated: ${carList}")
             carList.let {
                 adapter.updateData(carList as List<Result>)
             }
-           /* val ctx = this@CarsFragment
-            ctx.runOnUiThread {
 
-            }
+            pbCars.hide()
+            rvCarList.show()
 
-            carsResponse.body()?.let { adapter.updateData(it.results as List<Result>) }*/
 
         }
 
-
-
+    }
+    private fun View.show(){
+        visibility = View.VISIBLE
+    }
+    private fun View.hide(){
+        visibility = View.GONE
     }
 }
