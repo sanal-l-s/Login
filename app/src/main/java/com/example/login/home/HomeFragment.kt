@@ -53,9 +53,11 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
+
         txtQuote = rootView.findViewById(R.id.txtQuote)
         layoutHome = rootView.findViewById(R.id.layoutHome)
         pbHome = rootView.findViewById(R.id.pbHome)
+
         return rootView
     }
 
