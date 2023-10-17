@@ -44,6 +44,7 @@ class SignupActivity : AppCompatActivity() {
 
 
     }
+
     private fun areFieldsNotEmpty(email: String, username: String, password: String): Boolean {
         return email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()
     }

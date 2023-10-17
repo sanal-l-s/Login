@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.login.R
 import com.example.login.data.CarsApiHelper
 import com.example.login.data.CarsApiService
-import com.example.login.data.Credential
-import com.example.login.data.LoginAPiService
-import com.example.login.data.LoginApiHelper
 import com.example.login.data.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -72,10 +69,12 @@ class CarsFragment : Fragment() {
         }
 
     }
-    private fun View.show(){
+
+    private fun View.show() {
         visibility = View.VISIBLE
     }
-    private fun View.hide(){
+
+    private fun View.hide() {
         visibility = View.GONE
     }
 }

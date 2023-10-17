@@ -34,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
                     }
                     true
                 }
+
                 R.id.navCars -> {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.containerHomeFragment, CarsFragment())

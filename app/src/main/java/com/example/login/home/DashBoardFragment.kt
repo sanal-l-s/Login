@@ -43,7 +43,7 @@ class DashBoardFragment : Fragment() {
         // This loop will create 20 Views containing
         // the image with the count of view
         for (i in 1..20) {
-            data.add(ItemViewModel(i, "Name" + i ))
+            data.add(ItemViewModel(i, "Name" + i))
         }
 
         // This will pass the ArrayList to our Adapter
