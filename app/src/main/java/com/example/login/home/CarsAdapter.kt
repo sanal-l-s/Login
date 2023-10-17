@@ -36,7 +36,7 @@ class CarsAdapter(private val list: MutableList<Result>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemList = list[position]
         holder.apply {
-            txtBrandName.text = itemList.mfrCommonName
+            txtBrandName.text = itemList.mfrName
             txtCountryName.text = itemList.country
         }
     }

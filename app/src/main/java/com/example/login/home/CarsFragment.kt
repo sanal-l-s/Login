@@ -15,6 +15,7 @@ import com.example.login.data.Credential
 import com.example.login.data.LoginAPiService
 import com.example.login.data.LoginApiHelper
 import com.example.login.data.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -46,7 +47,7 @@ class CarsFragment : Fragment() {
         adapter = CarsAdapter(mutableListOf())
         rvCarList.adapter = adapter
 
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             val carsAPiService: CarsApiService = CarsApiHelper.getInstance().create(
                 CarsApiService::class.java
             )
@@ -54,6 +55,9 @@ class CarsFragment : Fragment() {
             val carsResponse = carsAPiService.getCars()
             val carList = carsResponse.body()?.results
             Log.i("TAG", "onViewCreated: ${carList}")
+            carList.let {
+                adapter.updateData(carList as List<Result>)
+            }
            /* val ctx = this@CarsFragment
             ctx.runOnUiThread {
 
