@@ -18,4 +18,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
     <string name="title_refresh_quotes">Refresh Quotes</string>
+    <string name="title_cars">Cars</string>
 </resources>

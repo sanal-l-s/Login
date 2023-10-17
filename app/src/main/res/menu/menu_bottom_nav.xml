@@ -10,6 +10,10 @@
         android:icon="@drawable/baseline_dashboard_24"
         android:title="@string/title_dashboard" />
     <item
+        android:id="@+id/navCars"
+        android:icon="@drawable/baseline_format_list_numbered_24"
+        android:title="@string/title_cars" />
+    <item
         android:id="@+id/navProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="@string/title_profile" />
