@@ -9,8 +9,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.login.R
-import com.example.login.data.ApiService
-import com.example.login.data.RetrofitHelper
+import com.example.login.data.QuotesApiService
+import com.example.login.data.QuotesApiHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
     private lateinit var pbHome: ProgressBar
     private lateinit var layoutHome: LinearLayout
 
-    private val apiService: ApiService = RetrofitHelper.getInstance().create(ApiService::class.java)
+    private val quotesApiService: QuotesApiService = QuotesApiHelper.getInstance().create(QuotesApiService::class.java)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
             layoutHome.gone()
             pbHome.visible()
 
-            val quote = apiService.getRandomQuote().body()?.first()
+            val quote = quotesApiService.getRandomQuote().body()?.first()
 
             "\"${ quote ?: "Failed to fetch quote" }\"".also { txtQuote.text = it }
             pbHome.gone()

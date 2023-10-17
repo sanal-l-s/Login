@@ -11,9 +11,15 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.login.data.Credential
+import com.example.login.data.LoginAPiService
+import com.example.login.data.LoginApiHelper
 import com.example.login.home.HomeActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private var errorMessage: String = ""
     private val btnLogin: Button by lazy { findViewById(R.id.btnLogin) }
     private val etUserName: EditText by lazy { findViewById(R.id.etUserName) }
     private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
@@ -23,6 +29,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        //hardcoding credentials TODO: remove after use
+        etUserName.setText("kdulyt")
+        etPassword.setText("5t6q4KC7O")
+
 
         setupClickListeners()
 
@@ -36,14 +48,23 @@ class MainActivity : AppCompatActivity() {
             val username = etUserName.text.toString()
             val password = etPassword.text.toString()
 
-            if (isCredentialsValid(username, password)) {
-                txtErrorMessage.visibility = View.INVISIBLE
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this, ProfileActivity::class.java))
-                startActivity(Intent(this, HomeActivity::class.java))
-            } else {
-                txtErrorMessage.showError("Invalid username or password")
+//            login(username, password)
+
+            GlobalScope.launch {
+                isCredentialsValid(username, password) { isValid ->
+                    val ctx = this@MainActivity
+                    ctx.runOnUiThread {
+                        if (isValid) {
+                            txtErrorMessage.hide()
+                            Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(ctx, HomeActivity::class.java))
+                        } else {
+                            txtErrorMessage.showError(errorMessage)
+                        }
+                    }
+                }
             }
+
         }
 
         txtSignup.setOnClickListener {
@@ -51,14 +72,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isCredentialsValid(username: String, password: String): Boolean {
-        return true //for skipping validation
-        return username == "admin" && password == "admin@123"
+
+    private suspend fun isCredentialsValid(
+        username: String,
+        password: String,
+        callback: (Boolean) -> Unit
+    ) {
+        val loginAPiService: LoginAPiService = LoginApiHelper.getInstance().create(
+            LoginAPiService::class.java
+        )
+
+        val credential = Credential(username, password)
+        val userResponse = loginAPiService.login(credential)
+        errorMessage = userResponse.body()?.message ?: "Invalid"
+
+        // Check if the API call was successful and return the result via the callback
+        callback(userResponse.isSuccessful)
     }
 
     private fun TextView.showError(message: String) {
         text = message
         visibility = View.VISIBLE
+    }
+
+    private fun TextView.hide() {
+        visibility = View.INVISIBLE
     }
 
     private fun hideKeyboard() {

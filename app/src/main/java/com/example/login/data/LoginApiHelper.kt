@@ -3,8 +3,8 @@ package com.example.login.data
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitHelper {
-    private const val baseUrl = "https://ron-swanson-quotes.herokuapp.com/v2/"
+object LoginApiHelper {
+    private const val baseUrl = "https://dummyjson.com/"
 
     fun getInstance(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)
