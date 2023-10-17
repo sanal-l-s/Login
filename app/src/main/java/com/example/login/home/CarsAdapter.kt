@@ -8,7 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.login.R
 import com.example.login.data.Result
 
-class CarsAdapter(private val list: List<Result>) : RecyclerView.Adapter<CarsAdapter.ViewHolder>() {
+class CarsAdapter(private val list: MutableList<Result>) :
+    RecyclerView.Adapter<CarsAdapter.ViewHolder>() {
+    fun updateData(newList: List<Result>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtBrandName: TextView = itemView.findViewById(R.id.txtCarName)
         val txtCountryName: TextView = itemView.findViewById(R.id.txtCarCountry)
