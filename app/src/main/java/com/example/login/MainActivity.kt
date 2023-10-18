@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
 
 
         if (sharedPref.contains("id")) {
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java)).also {
+                finish() }
         } else {
             setupClickListeners()
         }
@@ -65,7 +66,8 @@ class MainActivity : AppCompatActivity() {
                         if (isValid) {
                             txtErrorMessage.hide()
                             Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(ctx, HomeActivity::class.java))
+                            startActivity(Intent(ctx, HomeActivity::class.java)).also {
+                                finish() }
                         } else {
                             txtErrorMessage.showError(errorMessage)
                         }

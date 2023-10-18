@@ -36,17 +36,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="admin"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:fontFamily="@font/poppins_bold" />
+                app:fontFamily="@font/poppins_bold"
+                tools:text="@tools:sample/full_names" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
+            <Button
+                android:id="@+id/btnLogout"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="16dp"
+                android:text="Logout"
+                android:textAllCaps="false" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 
 
 </FrameLayout>
