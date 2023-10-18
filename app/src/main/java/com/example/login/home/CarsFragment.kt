@@ -43,8 +43,11 @@ class CarsFragment : Fragment() {
         rvCarList.layoutManager = LinearLayoutManager(this.context)
         adapter = CarsAdapter(mutableListOf()) { car ->
 
+            val carDetailsFragment = CarDetailsFragment.newInstance(car)
+
+            // Replace the current fragment with CarDetailsFragment
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.containerHomeFragment, CarDetailsFragment(car))
+                replace(R.id.containerHomeFragment, carDetailsFragment)
                 addToBackStack(null)
                 commit()
             }

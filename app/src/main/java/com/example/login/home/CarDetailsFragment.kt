@@ -12,12 +12,23 @@ import com.example.login.R
 import com.example.login.data.Result
 import com.example.login.data.VehicleType
 
-class CarDetailsFragment(val car: Result) : Fragment() {
+class CarDetailsFragment : Fragment() {
     private lateinit var txtCommonName: TextView
     private lateinit var txtCarName: TextView
     private lateinit var txtCarCountry: TextView
     private lateinit var txtMfdId: TextView
     private lateinit var rvVehicleTypes: RecyclerView
+
+    companion object {
+        // Function to create a new instance of CarDetailsFragment with car data
+        fun newInstance(car: Result): CarDetailsFragment {
+            val fragment = CarDetailsFragment()
+            val args = Bundle()
+            args.putParcelable("carData", car)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
 
     override fun onCreateView(
@@ -36,6 +47,8 @@ class CarDetailsFragment(val car: Result) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val car = arguments?.getParcelable<Result>("carData")!!
 
         txtCommonName.text = car.mfrCommonName
         txtCarName.text = car.mfrName
