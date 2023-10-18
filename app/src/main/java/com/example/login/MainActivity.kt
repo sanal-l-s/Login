@@ -2,6 +2,7 @@ package com.example.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.login.data.Credential
 import com.example.login.data.LoginAPiService
 import com.example.login.data.LoginApiHelper
+import com.example.login.data.UserData
 import com.example.login.home.HomeActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
     private val txtErrorMessage: TextView by lazy { findViewById(R.id.txtErrorMessage) }
     private val txtSignup: TextView by lazy { findViewById(R.id.txtSignup) }
+    private val sharedPref: SharedPreferences by lazy { getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,11 @@ class MainActivity : AppCompatActivity() {
         etPassword.setText("5t6q4KC7O")
 
 
-        setupClickListeners()
+        if (sharedPref.contains("id")) {
+            startActivity(Intent(this, HomeActivity::class.java))
+        } else {
+            setupClickListeners()
+        }
 
 
     }
@@ -84,10 +92,29 @@ class MainActivity : AppCompatActivity() {
 
         val credential = Credential(username, password)
         val userResponse = loginAPiService.login(credential)
-        errorMessage = userResponse.body()?.message ?: "Invalid"
+        errorMessage = userResponse.body()?.message ?: "Invalid Username or password"
+
+        val userData = userResponse.body()
+
+        if (userResponse.isSuccessful) {
+            storeUserData(userData)
+        }
 
         // Check if the API call was successful and return the result via the callback
         callback(userResponse.isSuccessful)
+    }
+
+    private fun storeUserData(userData: UserData?) {
+        sharedPref.edit().apply {
+            putInt("id", userData?.id!!)
+            putString("token", userData.token)
+            putString("email", userData.email)
+            putString("username", userData.username)
+            putString("firstName", userData.firstName)
+            putString("lastName", userData.lastName)
+            putString("gender", userData.gender)
+            putString("image", userData.image)
+        }.apply()
     }
 
     private fun TextView.showError(message: String) {
