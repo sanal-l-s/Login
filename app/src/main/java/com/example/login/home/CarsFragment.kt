@@ -45,6 +45,11 @@ class CarsFragment : Fragment() {
         adapter = CarsAdapter(mutableListOf()) { car ->
 
             Toast.makeText(this.context, "Car ${car.mfrName}", Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.containerHomeFragment, CarDetailsFragment())
+                addToBackStack(null)
+                commit()
+            }
         }
         rvCarList.adapter = adapter
 
