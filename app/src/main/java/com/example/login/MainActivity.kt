@@ -25,6 +25,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private var errorMessage: String = ""
+
+    // Lazy initialization for UI elements
     private val btnLogin: Button by lazy { findViewById(R.id.btnLogin) }
     private val etUserName: EditText by lazy { findViewById(R.id.etUserName) }
     private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
@@ -38,59 +40,67 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        // Check if user data is already stored
         if (sharedPref.contains("id")) {
+            // If yes, go to the home page
             startActivity(Intent(this, HomeActivity::class.java)).also {
                 finish()
             }
         } else {
+            // Otherwise, set up click listeners
             setupClickListeners()
         }
-
-
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun setupClickListeners() {
+        // Set up a click listener for the login button
         btnLogin.setOnClickListener {
+            // Hide the keyboard
             hideKeyboard()
 
+            // Get username and password from input fields
             val username = etUserName.text.toString()
             val password = etPassword.text.toString()
 
-//            login(username, password)
-
+            // Launch a coroutine for the login process
             GlobalScope.launch(Dispatchers.Main) {
+                // Hide any error message
                 txtErrorMessage.hide()
+                // Show a loading indicator
                 pbLogin.show()
+
+                // Check if the credentials are valid
                 isCredentialsValid(username, password) { isValid ->
                     pbLogin.hide()
                     val ctx = this@MainActivity
                     if (isValid) {
+                        // If login is successful, display a toast message
                         txtErrorMessage.hide()
                         Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
+                        // Go to the home page
                         startActivity(Intent(ctx, HomeActivity::class.java)).also {
                             finish()
                         }
                     } else {
+                        // If login fails, show an error message
                         txtErrorMessage.showError(errorMessage)
                     }
                 }
             }
-
         }
 
+        // Set up a click listener for the signup text
         txtSignup.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
     }
 
-
+    // Function to check if credentials are valid
     private suspend fun isCredentialsValid(
         username: String,
         password: String,
@@ -107,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         val userData = userResponse.body()
 
         if (userResponse.isSuccessful) {
+            // Store user data if the API call was successful
             storeUserData(userData)
         }
 
@@ -114,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         callback(userResponse.isSuccessful)
     }
 
+    // Function to store user data in SharedPreferences
     private fun storeUserData(userData: UserData?) {
         sharedPref.edit().apply {
             putInt("id", userData?.id!!)
