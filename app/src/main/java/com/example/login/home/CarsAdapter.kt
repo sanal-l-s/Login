@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.login.R
 import com.example.login.data.Result
 
-class CarsAdapter(private val list: MutableList<Result>) :
+class CarsAdapter(
+    private val list: MutableList<Result>,
+    private var onItemClicked: ((car: Result) -> Unit)
+) :
     RecyclerView.Adapter<CarsAdapter.ViewHolder>() {
     fun updateData(newList: List<Result>) {
         list.clear()
@@ -23,7 +26,7 @@ class CarsAdapter(private val list: MutableList<Result>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return CarsAdapter.ViewHolder(
+        return ViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_car, parent, false)
         )
@@ -38,6 +41,9 @@ class CarsAdapter(private val list: MutableList<Result>) :
         holder.apply {
             txtBrandName.text = itemList.mfrName
             txtCountryName.text = itemList.country
+            itemView.setOnClickListener {
+                onItemClicked(itemList)
+            }
         }
     }
 }
