@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.login.R
 import com.example.login.data.Result
+import com.example.login.data.VehicleType
 
 class CarDetailsFragment(val car: Result) : Fragment() {
+    private lateinit var txtCommonName: TextView
     private lateinit var txtCarName: TextView
     private lateinit var txtCarCountry: TextView
+    private lateinit var txtMfdId: TextView
+    private lateinit var rvVehicleTypes: RecyclerView
 
 
     override fun onCreateView(
@@ -20,16 +26,25 @@ class CarDetailsFragment(val car: Result) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_car_details, container, false).apply {
+            txtCommonName = findViewById(R.id.txtCarCommonName)
             txtCarName = findViewById(R.id.txtCarName)
             txtCarCountry = findViewById(R.id.txtCarCountry)
+            txtMfdId = findViewById(R.id.txtMfdId)
+            rvVehicleTypes = findViewById(R.id.rvVehicleTypes)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        txtCarName.text = car.vehicleTypes.toString()
+        txtCommonName.text = car.mfrCommonName
+        txtCarName.text = car.mfrName
+        txtMfdId.text = car.mfrID.toString()
         txtCarCountry.text = car.country
+
+        rvVehicleTypes.layoutManager = LinearLayoutManager(this.context)
+        rvVehicleTypes.adapter = VehicleTypeAdapter(car.vehicleTypes as List<VehicleType>)
+
     }
 
 }

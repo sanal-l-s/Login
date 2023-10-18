@@ -12,8 +12,17 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/txtCarName"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtMfdId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_extralight"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+            android:id="@+id/txtCarCommonName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_margin="8dp"
@@ -22,15 +31,54 @@
             android:textStyle="bold"
             tools:text="@tools:sample/first_names" />
 
+
+        <TextView
+            android:id="@+id/txtCarName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
+            tools:text="@tools:sample/first_names" />
+
         <TextView
             android:id="@+id/txtCarCountry"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
             android:layout_margin="8dp"
             android:fontFamily="@font/poppins_extralight"
             android:textSize="16sp"
             tools:text="@tools:sample/cities" />
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Vehicle Types"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvVehicleTypes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_vehicle_type" />
+
     </LinearLayout>
+
 </FrameLayout>
