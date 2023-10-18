@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import com.example.login.data.LoginApiHelper
 import com.example.login.data.UserData
 import com.example.login.home.HomeActivity
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val etUserName: EditText by lazy { findViewById(R.id.etUserName) }
     private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
     private val txtErrorMessage: TextView by lazy { findViewById(R.id.txtErrorMessage) }
+    private val pbLogin: ProgressBar by lazy { findViewById(R.id.pbLogin) }
     private val txtSignup: TextView by lazy { findViewById(R.id.txtSignup) }
     private val sharedPref: SharedPreferences by lazy {
         getSharedPreferences(
@@ -62,19 +65,20 @@ class MainActivity : AppCompatActivity() {
 
 //            login(username, password)
 
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.Main) {
+                txtErrorMessage.hide()
+                pbLogin.show()
                 isCredentialsValid(username, password) { isValid ->
+                    pbLogin.hide()
                     val ctx = this@MainActivity
-                    ctx.runOnUiThread {
-                        if (isValid) {
-                            txtErrorMessage.hide()
-                            Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(ctx, HomeActivity::class.java)).also {
-                                finish()
-                            }
-                        } else {
-                            txtErrorMessage.showError(errorMessage)
+                    if (isValid) {
+                        txtErrorMessage.hide()
+                        Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(ctx, HomeActivity::class.java)).also {
+                            finish()
                         }
+                    } else {
+                        txtErrorMessage.showError(errorMessage)
                     }
                 }
             }
@@ -130,6 +134,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun TextView.hide() {
         visibility = View.INVISIBLE
+    }
+
+    private fun View.hide() {
+        visibility = View.INVISIBLE
+    }
+
+    private fun View.show() {
+        visibility = View.VISIBLE
     }
 
     private fun hideKeyboard() {
