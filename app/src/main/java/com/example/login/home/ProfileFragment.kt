@@ -33,7 +33,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-        tvUsername.text = sharedPref.getString("username", "")
+        tvUsername.text =
+            "${sharedPref.getString("firstName", "")} ${sharedPref.getString("lastName", "")}"
         btnLogout.setOnClickListener {
             logout()
         }

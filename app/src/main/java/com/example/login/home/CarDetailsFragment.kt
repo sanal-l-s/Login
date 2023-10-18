@@ -49,7 +49,6 @@ class CarDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val car = arguments?.getParcelable<Result>("carData")!!
         val car = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable("carData", Result::class.java)!!
         } else {
