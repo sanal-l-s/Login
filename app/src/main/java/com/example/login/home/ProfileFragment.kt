@@ -18,10 +18,6 @@ class ProfileFragment : Fragment() {
     private lateinit var btnLogout: Button
     private lateinit var sharedPref: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +44,7 @@ class ProfileFragment : Fragment() {
         sharedPref.edit().apply {
             clear()
         }.apply()
-        startActivity(Intent(this.context,MainActivity::class.java)).also {
+        startActivity(Intent(this.context, MainActivity::class.java)).also {
             requireActivity().finish()
         }
     }

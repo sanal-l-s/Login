@@ -17,6 +17,7 @@ import com.example.login.data.LoginAPiService
 import com.example.login.data.LoginApiHelper
 import com.example.login.data.UserData
 import com.example.login.home.HomeActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -27,7 +28,12 @@ class MainActivity : AppCompatActivity() {
     private val etPassword: EditText by lazy { findViewById(R.id.etPassword) }
     private val txtErrorMessage: TextView by lazy { findViewById(R.id.txtErrorMessage) }
     private val txtSignup: TextView by lazy { findViewById(R.id.txtSignup) }
-    private val sharedPref: SharedPreferences by lazy { getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE) }
+    private val sharedPref: SharedPreferences by lazy {
+        getSharedPreferences(
+            "MyAppPrefs",
+            Context.MODE_PRIVATE
+        )
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +41,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        //hardcoding credentials TODO: remove after use
-        etUserName.setText("kdulyt")
-        etPassword.setText("5t6q4KC7O")
-
-
         if (sharedPref.contains("id")) {
             startActivity(Intent(this, HomeActivity::class.java)).also {
-                finish() }
+                finish()
+            }
         } else {
             setupClickListeners()
         }
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun setupClickListeners() {
         btnLogin.setOnClickListener {
             hideKeyboard()
@@ -67,7 +70,8 @@ class MainActivity : AppCompatActivity() {
                             txtErrorMessage.hide()
                             Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(ctx, HomeActivity::class.java)).also {
-                                finish() }
+                                finish()
+                            }
                         } else {
                             txtErrorMessage.showError(errorMessage)
                         }

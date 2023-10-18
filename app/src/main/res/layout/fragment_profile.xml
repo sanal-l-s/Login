@@ -52,11 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="16dp"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:textAllCaps="false" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 
 </FrameLayout>
