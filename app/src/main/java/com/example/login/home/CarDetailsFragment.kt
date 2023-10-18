@@ -1,5 +1,6 @@
 package com.example.login.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,12 @@ class CarDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val car = arguments?.getParcelable<Result>("carData")!!
+//        val car = arguments?.getParcelable<Result>("carData")!!
+        val car = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("carData", Result::class.java)!!
+        } else {
+            arguments?.getParcelable<Result>("carData")!!
+        }
 
         txtCommonName.text = car.mfrCommonName
         txtCarName.text = car.mfrName
