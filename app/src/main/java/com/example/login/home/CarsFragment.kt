@@ -1,7 +1,6 @@
 package com.example.login.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,7 @@ class CarsFragment : Fragment() {
         rvCarList.layoutManager = LinearLayoutManager(this.context)
         adapter = CarsAdapter(mutableListOf()) { car ->
 
-            Toast.makeText(this.context, "Car ${car.mfrCommonName}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "Car ${car.mfrName}", Toast.LENGTH_SHORT).show()
         }
         rvCarList.adapter = adapter
 
@@ -58,11 +57,7 @@ class CarsFragment : Fragment() {
 
             val carsResponse = carsAPiService.getCars()
 
-            val carList = carsResponse.body()?.results
-            Log.i("TAG", "onViewCreated: ${carList}")
-            carList.let {
-                adapter.updateData(carList as List<Result>)
-            }
+            adapter.updateData(carsResponse.body()?.results as List<Result>)
 
             pbCars.hide()
             rvCarList.show()
