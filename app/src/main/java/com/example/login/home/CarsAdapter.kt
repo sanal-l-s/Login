@@ -37,12 +37,12 @@ class CarsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemList = list[position]
+        val car = list[position]
         holder.apply {
-            txtBrandName.text = itemList.mfrName
-            txtCountryName.text = itemList.country
+            txtBrandName.text = car.mfrName
+            txtCountryName.text = car.country
             itemView.setOnClickListener {
-                onItemClicked(itemList)
+                onItemClicked(car)
             }
         }
     }

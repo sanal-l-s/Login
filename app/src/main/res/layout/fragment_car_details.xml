@@ -5,10 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".home.CarDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <TextView
+            android:id="@+id/txtCarName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/txtCarCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_extralight"
+            android:textSize="16sp"
+            tools:text="@tools:sample/cities" />
+
+    </LinearLayout>
 </FrameLayout>
