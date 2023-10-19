@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.login.MainActivity
 import com.example.login.R
 
@@ -18,7 +20,7 @@ class ProfileFragment : Fragment() {
     private lateinit var tvUsername: TextView
     private lateinit var tvEmail: TextView
     private lateinit var tvFullName: TextView
-
+    private lateinit var imgProfile: ImageView
     private lateinit var layoutLoin: LinearLayout
     private lateinit var sharedPref: SharedPreferences
 
@@ -33,6 +35,7 @@ class ProfileFragment : Fragment() {
             tvEmail = findViewById(R.id.tvEmail)
             tvFullName = findViewById(R.id.tvFullName)
             layoutLoin = findViewById(R.id.layoutLogin)
+            imgProfile = findViewById(R.id.ivProfileAvatar)
         }
     }
 
@@ -46,6 +49,12 @@ class ProfileFragment : Fragment() {
         tvUsername.text = sharedPref.getString("username", "")
         tvEmail.text = sharedPref.getString("email", "")
         tvFullName.text = fullName
+
+        Glide.with(this)
+            .load(sharedPref.getString("image", ""))
+            .centerCrop()
+            .placeholder(R.drawable.avatar_placeholder)
+            .into(imgProfile)
 
         layoutLoin.setOnClickListener {
             logout()
