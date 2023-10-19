@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.DashBoardFragment">
+    tools:context=".modules.homepage.dashboard.DashBoardFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLocalList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/layout_rv_item_local" />
+        tools:listitem="@layout/item_local_list" />
 </FrameLayout>
