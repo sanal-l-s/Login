@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.login.data.Credential
 import com.example.login.data.LoginAPiService
@@ -47,9 +46,7 @@ class MainActivity : AppCompatActivity() {
         // Check if user data is already stored
         if (sharedPref.contains("id")) {
             // If yes, go to the home page
-            startActivity(Intent(this, HomeActivity::class.java)).also {
-                finish()
-            }
+            startHomeActivity()
         } else {
             // Otherwise, set up click listeners
             setupClickListeners()
@@ -81,11 +78,8 @@ class MainActivity : AppCompatActivity() {
                     if (isValid) {
                         // If login is successful, display a toast message
                         txtErrorMessage.hide()
-                        Toast.makeText(ctx, "Login Successful", Toast.LENGTH_SHORT).show()
                         // Go to the home page
-                        startActivity(Intent(ctx, HomeActivity::class.java)).also {
-                            finish()
-                        }
+                        startHomeActivity()
                     } else {
                         // If login fails, show an error message
                         txtErrorMessage.showError(errorMessage)
@@ -139,23 +133,23 @@ class MainActivity : AppCompatActivity() {
         }.apply()
     }
 
+    //Extension function to show error in textView
     private fun TextView.showError(message: String) {
         text = message
         visibility = View.VISIBLE
     }
 
-    private fun TextView.hide() {
-        visibility = View.INVISIBLE
-    }
-
+    //Extension function to make a view invisible
     private fun View.hide() {
         visibility = View.INVISIBLE
     }
 
+    //Extension function to make a view visible
     private fun View.show() {
         visibility = View.VISIBLE
     }
 
+    //Function to hide keyboard
     private fun hideKeyboard() {
         val view: View? = this.currentFocus
         view?.let { hideSoftInputFromWindow(it.windowToken) }
@@ -164,5 +158,11 @@ class MainActivity : AppCompatActivity() {
     private fun hideSoftInputFromWindow(windowToken: IBinder) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    //Function to start HomeActivity
+    private fun startHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }
