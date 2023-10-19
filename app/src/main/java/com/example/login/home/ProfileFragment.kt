@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.login.MainActivity
 import com.example.login.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProfileFragment : Fragment() {
     private lateinit var tvTitleName: TextView
@@ -43,6 +44,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
+        //Displaying user details
         val fullName =
             "${sharedPref.getString("firstName", "")} ${sharedPref.getString("lastName", "")}"
         tvTitleName.text = fullName
@@ -50,14 +52,28 @@ class ProfileFragment : Fragment() {
         tvEmail.text = sharedPref.getString("email", "")
         tvFullName.text = fullName
 
+        //Loading image from url
         Glide.with(this)
             .load(sharedPref.getString("image", ""))
             .centerCrop()
             .placeholder(R.drawable.avatar_placeholder)
             .into(imgProfile)
 
+        //handle logout action
         layoutLoin.setOnClickListener {
-            logout()
+            //show alert for confirmation
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Logout") { dialog, which ->
+                    // Handle logout logic here
+                    logout()
+                }
+                .setNegativeButton("Cancel") { dialog, which ->
+                    // Dismiss the dialog if "Cancel" is clicked.
+                    dialog.dismiss()
+                }
+                .show()
         }
 
     }
