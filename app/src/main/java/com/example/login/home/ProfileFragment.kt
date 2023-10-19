@@ -7,15 +7,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.login.MainActivity
 import com.example.login.R
 
 class ProfileFragment : Fragment() {
+    private lateinit var tvTitleName: TextView
     private lateinit var tvUsername: TextView
-    private lateinit var btnLogout: Button
+    private lateinit var tvEmail: TextView
+    private lateinit var tvFullName: TextView
+
+    private lateinit var layoutLoin: LinearLayout
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
@@ -24,8 +28,11 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false).apply {
-            tvUsername = findViewById(R.id.txtProfileName)
-            btnLogout = findViewById(R.id.btnLogout)
+            tvTitleName = findViewById(R.id.tvTitlename)
+            tvUsername = findViewById(R.id.tvUserName)
+            tvEmail = findViewById(R.id.tvEmail)
+            tvFullName = findViewById(R.id.tvFullName)
+            layoutLoin = findViewById(R.id.layoutLogin)
         }
     }
 
@@ -33,9 +40,14 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-        tvUsername.text =
+        val fullName =
             "${sharedPref.getString("firstName", "")} ${sharedPref.getString("lastName", "")}"
-        btnLogout.setOnClickListener {
+        tvTitleName.text = fullName
+        tvUsername.text = sharedPref.getString("username", "")
+        tvEmail.text = sharedPref.getString("email", "")
+        tvFullName.text = fullName
+
+        layoutLoin.setOnClickListener {
             logout()
         }
 
