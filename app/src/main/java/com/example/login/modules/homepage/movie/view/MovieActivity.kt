@@ -20,7 +20,11 @@ class MovieActivity : AppCompatActivity() {
         prepareRecyclerView()
         viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
         viewModel.getPopularMovies()
-        viewModel.observeMovieLiveData().observe(this, Observer { movieList ->
+
+
+        viewModel.movieLiveData.observe(this, Observer { movieList ->
+
+
             movieAdapter.setMovieList(movieList)
         })
     }

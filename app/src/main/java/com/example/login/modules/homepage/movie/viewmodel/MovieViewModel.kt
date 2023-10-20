@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
-	private var movieLiveData = MutableLiveData<List<Result>>()
+	var movieLiveData = MutableLiveData<List<Result>>()
 	fun getPopularMovies() {
 		RetrofitInstance.api.getPopularMovies("69d66957eebff9666ea46bd464773cf0").enqueue(object :
 			Callback<Movies> {
