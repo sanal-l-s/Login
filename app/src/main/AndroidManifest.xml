@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
+            android:name=".modules.homepage.movie.MovieActivity"
+            android:exported="false" />
+        <activity
             android:name=".modules.homepage.HomeActivity"
             android:exported="false" />
         <activity

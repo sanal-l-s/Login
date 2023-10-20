@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.login.R
+import com.example.login.modules.homepage.movie.MovieActivity
 import com.example.login.modules.login.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -22,7 +23,8 @@ class ProfileFragment : Fragment() {
     private lateinit var tvEmail: TextView
     private lateinit var tvFullName: TextView
     private lateinit var imgProfile: ImageView
-    private lateinit var layoutLoin: LinearLayout
+    private lateinit var layoutLogin: LinearLayout
+    private lateinit var layoutMovieList: LinearLayout
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
@@ -35,7 +37,8 @@ class ProfileFragment : Fragment() {
             tvUsername = findViewById(R.id.tvUserName)
             tvEmail = findViewById(R.id.tvEmail)
             tvFullName = findViewById(R.id.tvFullName)
-            layoutLoin = findViewById(R.id.layoutLogin)
+            layoutLogin = findViewById(R.id.layoutLogin)
+            layoutMovieList = findViewById(R.id.layoutMoviesLink)
             imgProfile = findViewById(R.id.ivProfileAvatar)
         }
     }
@@ -60,7 +63,7 @@ class ProfileFragment : Fragment() {
             .into(imgProfile)
 
         //handle logout action
-        layoutLoin.setOnClickListener {
+        layoutLogin.setOnClickListener {
             //show alert for confirmation
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Logout")
@@ -74,6 +77,9 @@ class ProfileFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+        }
+        layoutMovieList.setOnClickListener {
+            startActivity(Intent(context, MovieActivity::class.java))
         }
 
     }
