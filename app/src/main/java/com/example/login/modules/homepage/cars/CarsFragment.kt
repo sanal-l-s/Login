@@ -28,7 +28,7 @@ class CarsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentCarsBinding.inflate(inflater, container, false)
         return binding.root
@@ -72,9 +72,10 @@ class CarsFragment : Fragment() {
         viewModel.getCars()
         viewModel.carsLiveData.observe(viewLifecycleOwner, Observer { cars ->
             carsAdapter.updateData(cars as List<Result>)
+            binding.pbCars.hide()
+            binding.rvCars.show()
+
         })
-        binding.pbCars.hide()
-        binding.rvCars.show()
 
 
         /*
