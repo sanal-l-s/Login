@@ -1,4 +1,4 @@
-package com.example.login.modules.homepage.movie
+package com.example.login.modules.homepage.movie.model
 
 data class Movies(
     val page: Int,

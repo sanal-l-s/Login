@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.login.R
-import com.example.login.modules.homepage.movie.MovieActivity
+import com.example.login.modules.homepage.movie.view.MovieActivity
 import com.example.login.modules.login.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

@@ -1,10 +1,11 @@
-package com.example.login.modules.homepage.movie
+package com.example.login.modules.homepage.movie.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.login.databinding.MovieLayoutBinding
+import com.example.login.modules.homepage.movie.model.Result
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private var movieList = ArrayList<Result>()

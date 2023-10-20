@@ -1,4 +1,4 @@
-package com.example.login.modules.homepage.movie
+package com.example.login.modules.homepage.movie.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

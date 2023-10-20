@@ -1,4 +1,4 @@
-package com.example.login.modules.homepage.movie
+package com.example.login.modules.homepage.movie.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.login.databinding.ActivityMovieBinding
+import com.example.login.modules.homepage.movie.viewmodel.MovieViewModel
 
 class MovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieBinding
