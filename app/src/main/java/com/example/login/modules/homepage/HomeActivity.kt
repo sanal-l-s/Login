@@ -10,16 +10,11 @@ import com.example.login.modules.homepage.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
-    private val homeBottomNav: BottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.navHomePage) }
+    private val homeBottomNav: BottomNavigationView by lazy { findViewById(R.id.navHomePage) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.containerHomeFragment, HomeFragment())
-            commit()
-        }
 
         homeBottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -59,6 +54,25 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+    }
 
+    override fun onResume() {
+        super.onResume()
+        loadHomeFragment()
+    }
+
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.containerHomeFragment)
+
+        if (currentFragment is DashBoardFragment || currentFragment is CarsFragment || currentFragment is ProfileFragment) {
+            loadHomeFragment()
+        } else {
+            super.onBackPressed() // Perform the default back button behavior
+        }
+    }
+
+
+    private fun loadHomeFragment() {
+        homeBottomNav.selectedItemId = R.id.navHome
     }
 }
